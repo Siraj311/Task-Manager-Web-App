@@ -8,16 +8,4 @@ const pool = new Pool({
   port: process.env.DB_PORT,
 });
 
-async function checkConnection() {
-  try {
-    const client = await pool.connect();
-    console.log("DB connected successfully!");
-    client.release();
-  } catch (err) {
-    console.error("Error connecting to DB:", err.message);
-  }
-}
-
-checkConnection();
-
 module.exports = pool;
