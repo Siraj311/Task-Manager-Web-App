@@ -1,0 +1,115 @@
+.header-content {
+  height: 80px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 32px;
+  border-bottom: 1px solid #e4e5e7;
+  flex-wrap: nowrap;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  color: #171717;
+  font-size: 45px;
+  font-weight: 700;
+  flex-wrap: nowrap;
+  text-wrap: nowrap;
+}
+
+.header-title .menu-button {
+  display: none;
+  font-size: 35px;
+  margin-right: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.header-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 70px;
+  flex-wrap: nowrap;
+}
+
+.header-nav ul {
+  display: flex;
+  gap: 30px;
+}
+
+.header-nav ul li a {
+  display: flex;
+  height: 42px;
+  font-size: 25px;
+  font-weight: 600;
+  color: #62646a;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.header-nav ul li a:hover {
+  transform: scale(1.1);
+}
+
+.header-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.header-actions button {
+  transition: all 0.2s ease;
+}
+
+.header-actions button:hover {
+  transform: scale(1.05);
+}
+
+.header-actions .auth-button {
+  width: 137px;
+  height: 52px;
+  outline: none;
+  border: 1px solid #7a7a7a;
+  border-radius: 75px;
+  color: #515151;
+  font-size: 20px;
+  font-weight: 500;
+  background: white;
+  cursor: pointer;
+}
+
+.header-actions .profile-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  outline: none;
+  color: #515151;
+  font-size: 20px;
+  font-weight: 500;
+  background: white;
+  cursor: pointer;
+}
+
+/* Tablet and below */
+@media (max-width: 1024px) {
+  .header-nav {
+    display: none;
+  }
+
+  .header-title .menu-button {
+    display: flex;
+    align-items: center;
+  }
+}
+
+/* Mobile screens */
+@media (max-width: 768px) {
+  .header-actions {
+    display: none;
+  }
+}
