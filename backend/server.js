@@ -13,6 +13,8 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3500;
 
+app.use('/api/v1/auth', require('./routes/authRoutes'));
+
 app.all(/.*/, (req, res) => {
   res.status(404);
 
@@ -41,7 +43,7 @@ const startServerWithDb = async (retries = 3, delay = 3000) => {
   for (let i = 1; i <= retries; i++) {
     const connected = await checkDbConnection();
     if (connected) {
-      const PORT = process.env.PORT || 5000;
+      const PORT = process.env.PORT || 3500;
       app.listen(PORT, () => {
         console.log(`Server running on port ${PORT}`);
       });

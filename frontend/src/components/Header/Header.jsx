@@ -1,8 +1,11 @@
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { FaBars, FaUserCircle } from "react-icons/fa";
 import './Header.css';
+import { use } from 'react';
 
 const Header = () => {
+  const navigate = useNavigate();
+
   return (
     <header>
       <div className="header-content">
@@ -11,7 +14,7 @@ const Header = () => {
           <button className="menu-button" title='Menu'>
             <FaBars size={32} />
           </button>
-          <p>To Do Tasks</p>
+          <button onClick={() => navigate('/tasks')}><p>To Do Tasks</p></button>
         </div>
 
         <nav className="header-nav">
