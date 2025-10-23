@@ -53,7 +53,7 @@ const login = asyncHandler(async (req, res) => {
 
     const accessToken = jwt.sign(
       {
-        "Users": {
+        "User": {
           "id": foundUser.id,
           "username": foundUser.username,
           "email": foundUser.email,
@@ -73,10 +73,10 @@ const login = asyncHandler(async (req, res) => {
       httpOnly: true,
       secure: true,
       sameSite: 'None',
-      maxAge: 20 * 1000
+      maxAge: 60 * 1000
     }) 
 
-    res.json({ id: foundUser.id, accessToken })
+    res.json({ id: foundUser.id, username: foundUser.username, accessToken })
 })
 
 // GET /api/v1/auth/refresh
@@ -107,7 +107,7 @@ const refresh = (req, res) => {
             }
           },
           process.env.ACCESS_TOKEN_SECRET,
-          { expiresIn: '5s' }
+          { expiresIn: '30s' }
         )
         
         res.json({ accessToken })
