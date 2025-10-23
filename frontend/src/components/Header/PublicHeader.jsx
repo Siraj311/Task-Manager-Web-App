@@ -10,9 +10,6 @@ const PublicHeader = () => {
       <div className="header-content">
 
         <div className="header-title">
-          <button className="menu-button" title='Menu'>
-            <Link to="/"><FaBars size={32} /></Link>
-          </button>
           <button onClick={() => navigate('/')}><p>To Do Tasks</p></button>
         </div>
 

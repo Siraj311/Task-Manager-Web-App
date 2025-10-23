@@ -1,0 +1,95 @@
+/* Full-page board grid */
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Column styling */
+.column {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  position: relative;
+  scrollbar-gutter: stable; /* Reserve scrollbar space (no jump!) */
+}
+
+/* Sticky headers */
+.column h2 {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: #3498db;
+  color: white;
+  margin: 0;
+  padding: 15px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  text-align: center;
+  font-size: 1.2em;
+}
+
+/* Task cards */
+.task {
+  background-color: #ecf0f1;
+  margin: 10px;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Hide scrollbar track but keep space */
+.column::-webkit-scrollbar {
+  width: 8px;
+  background: transparent;
+}
+
+/* Scrollbar thumb (hidden by default) */
+.column::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+/* Show scrollbar thumb smoothly on hover */
+.column:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Firefox support */
+.column {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  transition: scrollbar-color 0.3s ease;
+}
+.column:hover {
+  scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+}
+
+/* --- Responsive breakpoints --- */
+
+@media (max-width: 1024px) {
+  .board {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .board {
+    grid-template-columns: 1fr;
+  }
+
+  .column h2 {
+    font-size: 1em;
+  }
+
+  .task {
+    font-size: 0.95em;
+  }
+}
