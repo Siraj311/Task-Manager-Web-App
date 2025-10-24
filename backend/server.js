@@ -14,6 +14,8 @@ app.use(express.json());
 const PORT = process.env.PORT || 3500;
 
 app.use('/api/v1/auth', require('./routes/authRoutes'));
+app.use('/api/v1/tasks', require('./routes/taskRoutes'));
+app.use('/api/v1/users', require('./routes/userRoutes'));
 
 app.all(/.*/, (req, res) => {
   res.status(404);

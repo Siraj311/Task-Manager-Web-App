@@ -18,8 +18,6 @@ CREATE TABLE tasks (
   created_by INT REFERENCES users(id) ON DELETE SET NULL,
   due_date DATE,
   file_path TEXT,
-  priority VARCHAR(10) DEFAULT 'Medium'
-      CHECK (priority IN ('Low', 'Medium', 'High')),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

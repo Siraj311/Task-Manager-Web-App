@@ -7,6 +7,10 @@ const asyncHandler = require('express-async-handler')
 // POST /api/v1/auth/signup
 const signup = asyncHandler(async (req, res) => {
     const { username, email, password } = req.body
+    let { userRole } = req.body
+    if(!userRole) {
+      userRole = 'user'
+    }
 
     if (!username || !password || !email) {
         return res.status(400).json({ message: 'All fields are required' })
@@ -21,8 +25,8 @@ const signup = asyncHandler(async (req, res) => {
     const hashedPwd = await bcrypt.hash(password, 10)
 
     const result = await pool.query(
-    'INSERT INTO "users" (username, email, password) VALUES ($1, $2, $3) RETURNING id, username, email',
-      [username, email, hashedPwd]
+    'INSERT INTO "users" (username, email, password, role) VALUES ($1, $2, $3, $4) RETURNING id, username, email, role',
+      [username, email, hashedPwd, userRole]
     );
 
     if (result.rows.length > 0) {  
@@ -57,26 +61,27 @@ const login = asyncHandler(async (req, res) => {
           "id": foundUser.id,
           "username": foundUser.username,
           "email": foundUser.email,
+          "role": foundUser.role
         }
       },
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: '20s' }
+      { expiresIn: '10m' }
     )
 
     const refreshToken = jwt.sign(
       { "email": foundUser.email },
       process.env.REFRESH_TOKEN_SECRET,
-      { expiresIn: '60s' }
+      { expiresIn: '30m' }
     )
 
     res.cookie('jwt', refreshToken, {
       httpOnly: true,
       secure: true,
       sameSite: 'None',
-      maxAge: 60 * 1000
+      maxAge: 30 * 60 * 1000
     }) 
 
-    res.json({ id: foundUser.id, username: foundUser.username, accessToken })
+    res.json({ id: foundUser.id, username: foundUser.username, role: foundUser.role, accessToken })
 })
 
 // GET /api/v1/auth/refresh

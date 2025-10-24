@@ -5,22 +5,28 @@ import Login from './pages/Login';
 import Tasks from './pages/Tasks';
 import Signup from './pages/Signup';
 import useAuth from './hooks/useAuth';
-import AddTask from './pages/AddTask';
+import AdminDashboard from './pages/AdminDashboard';
 
-const ProtectedRoute = () => {
+const ProtectedUserRoute = () => {
   const { auth } = useAuth();
-  // if (!auth?.user) {
-  //   return <Navigate to="/" replace />;
-  // }
+  if (!auth?.user) {
+    return <Navigate to="/" replace />;
+  }
+
+  if (auth.user.role === 'admin') {
+    return <Navigate to="/admin" replace />;
+  }
 
   return <Outlet />;
 };
 
 const PublicRoute = () => {
   const { auth } = useAuth();
-  // if (auth?.user) {
-  //   return <Navigate to="/tasks" replace />;
-  // }
+  if (auth?.user) {
+    return auth.user.role === 'admin'
+      ? <Navigate to="/admin" replace />
+      : <Navigate to="/tasks" replace />;
+  }
 
   return <Outlet />;
 };
@@ -36,11 +42,13 @@ const App = () => {
         </Route>
 
         <Route element={<Layout route="protected" />}>
-          <Route element={<ProtectedRoute />}>
+          <Route element={<ProtectedUserRoute />}>
             <Route path="/tasks" element={<Tasks />} />
-            <Route path="/addTask" element={<AddTask />} />
           </Route>
+
+          <Route path="/admin" element={<AdminDashboard />} />
         </Route>
+    
     </Routes>
   )
 }

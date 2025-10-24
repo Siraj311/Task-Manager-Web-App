@@ -30,13 +30,18 @@ const Login = () => {
       const accessToken = res?.data?.accessToken;
       const id = res?.data?.id;
       const username = res?.data?.username;
-      
-      setAuth({ user: { id, username, email }, accessToken });
+      const role = res?.data?.role;
+
+      setAuth({ user: { id, username, email, role }, accessToken });
       setEmail('');
       setPassword('');
       toast.success('Login successful!');
 
-      navigate('/tasks', { replace: true });
+      if(role === 'admin') {
+        navigate('/admin', { replace: true });
+      } else {
+        navigate('/tasks', { replace: true });
+      }
     } catch (err) {
       console.log(err);
       if (err?.response?.status === 400) {
